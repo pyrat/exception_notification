@@ -5,12 +5,12 @@ require File.expand_path('lib/exception_notification/version', __dir__)
 Gem::Specification.new do |s|
   s.name = 'exception_notification'
   s.version = ExceptionNotification::VERSION
-  s.authors = ['Jamis Buck', 'Josh Peek']
-  s.summary = 'Exception notification for Rails apps'
-  s.homepage = 'https://smartinez87.github.io/exception_notification/'
-  s.email = 'smartinez87@gmail.com'
+  s.authors = ['Jamis Buck', 'Josh Peek', 'Sebastián Martínez', 'Kevin McPhillips']
+  s.summary = 'Exception notification for Ruby applications'
+  s.homepage = 'https://kmcphillips.github.io/exception_notification/'
+  s.email = 'github@kevinmcphillips.ca'
   s.license = 'MIT'
-  s.metadata = { 'changelog_uri' => 'https://github.com/smartinez87/exception_notification/blob/master/CHANGELOG.rdoc' }
+  s.metadata = { 'changelog_uri' => 'https://github.com/kmcphillips/exception_notification/blob/master/CHANGELOG.rdoc' }
 
   s.required_ruby_version     = '>= 2.3'
   s.required_rubygems_version = '>= 1.8.11'

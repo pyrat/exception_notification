@@ -1,52 +1,55 @@
 # Exception Notification
 
 [![Gem Version](https://badge.fury.io/rb/exception_notification.svg)](https://badge.fury.io/rb/exception_notification)
-[![Build Status](https://github.com/smartinez87/exception_notification/actions/workflows/main.yml/badge.svg)](https://github.com/smartinez87/exception_notification/actions/workflows/main.yml)
-[![Coverage Status](https://coveralls.io/repos/github/smartinez87/exception_notification/badge.svg?branch=master)](https://coveralls.io/github/smartinez87/exception_notification?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/78a9a12be00a6d305136/maintainability)](https://codeclimate.com/github/smartinez87/exception_notification/maintainability)
-
-**THIS README IS FOR THE MASTER BRANCH AND REFLECTS THE WORK CURRENTLY EXISTING ON THE MASTER BRANCH. IF YOU ARE WISHING TO USE A NON-MASTER BRANCH OF EXCEPTION NOTIFICATION, PLEASE CONSULT THAT BRANCH'S README AND NOT THIS ONE.**
+[![Build Status](https://github.com/kmcphillips/exception_notification/actions/workflows/main.yml/badge.svg)](https://github.com/kmcphillips/exception_notification/actions/workflows/main.yml)
 
 ---
 
 The Exception Notification gem provides a set of [notifiers](#notifiers) for sending notifications when errors occur in a Rack/Rails application. The built-in notifiers can deliver notifications by [email](docs/notifiers/email.md), [HipChat](docs/notifiers/hipchat.md), [Slack](docs/notifiers/slack.md), [Mattermost](docs/notifiers/mattermost.md), [Teams](docs/notifiers/teams.md), [IRC](docs/notifiers/irc.md), [Amazon SNS](docs/notifiers/sns.md), [Google Chat](docs/notifiers/google_chat.md), [Datadog](docs/notifiers/datadog.md) or via custom [WebHooks](docs/notifiers/webhook.md).
 
-There's a great [Railscast about Exception Notification](http://railscasts.com/episodes/104-exception-notifications-revised) you can see that may help you getting started.
+There's a [Railscast (2011) about Exception Notification](http://railscasts.com/episodes/104-exception-notifications-revised) you can see that may help you getting started.
 
-[Follow us on Twitter](https://twitter.com/exception_notif) to get updates and notices about new releases.
+
+## Gem status
+
+This gem is not under active development, but is maintained. There are more robust and modern solutions for exception handling. But this code was [extracted from Rails about 15+ years ago](https://github.com/rails/exception_notification) and still has lots of value for some applications.
+
 
 ## Requirements
 
 * Ruby 2.5 or greater
 * Rails 5.2 or greater, Sinatra or another Rack-based application.
 
+
 ## Getting Started
 
 Add the following line to your application's Gemfile:
 
 ```ruby
-gem 'exception_notification'
+gem "exception_notification"
 ```
 
 ### Rails
 
 In order to install ExceptionNotification as an [engine](https://api.rubyonrails.org/classes/Rails/Engine.html), just run the following command from the terminal:
 
-    rails g exception_notification:install
+```bash
+rails g exception_notification:install
+```
 
 This generates an initializer file, `config/initializers/exception_notification.rb` with some default configuration, which you should modify as needed.
 
 Make sure the gem is not listed solely under the `production` group in your `Gemfile`, since this initializer will be loaded regardless of environment. If you want it to only be enabled in production, you can add this to your configuration:
 
 ```ruby
-  config.ignore_if do |exception, options|
-    not Rails.env.production?
-  end
+config.ignore_if do |exception, options|
+  !!Rails.env.local?
+end
 ```
 
 The generated initializer file will include this require:
 ```ruby
-require 'exception_notification/rails'
+require "exception_notification/rails"
 ```
 
 which automatically adds the ExceptionNotification middleware to the Rails middleware stack. This middleware is what watches for unhandled exceptions from your Rails app (except for [background jobs](#background-jobs)) and notifies you when they occur.
@@ -55,7 +58,7 @@ The generated file adds an `email` notifier:
 
 ```ruby
   config.add_notifier :email, {
-    email_prefix: '[ERROR] ',
+    email_prefix: "[ERROR] ",
     sender_address: %{"Notifier" <notifier@example.com>},
     exception_recipients: %w{exceptions@example.com}
   }
@@ -63,14 +66,15 @@ The generated file adds an `email` notifier:
 
 **Note**: In order to enable delivery notifications by email, make sure you have [ActionMailer configured](docs/notifiers/email.md#actionmailer-configuration).
 
+
 #### Adding middleware manually
 
-Alternatively, if for some reason you don't want to `require 'exception_notification/rails'`, you can manually add the middleware, like this:
+Alternatively, if for some reason you don't want to `require "exception_notification/rails"`, you can manually add the middleware, like this:
 
 ```ruby
 Rails.application.config.middleware.use ExceptionNotification::Rack,
   email: {
-    email_prefix: '[PREFIX] ',
+    email_prefix: "[PREFIX] ",
     sender_address: %{"notifier" <notifier@example.com>},
     exception_recipients: %w{exceptions@example.com}
   }
@@ -83,7 +87,8 @@ Options passed to the `ExceptionNotification::Rack` middleware in this way are t
 
 ### Rack/Sinatra
 
-In order to use ExceptionNotification with Sinatra, please take a look in the [example application](https://github.com/smartinez87/exception_notification/tree/master/examples/sinatra).
+In order to use ExceptionNotification with Sinatra, please take a look in the [example application](examples/sinatra).
+
 
 ### Custom Data, e.g. Current User
 
@@ -114,12 +119,12 @@ The current user will show up in your email, in a new section titled "Data".
    email: "jane.doe@example.com", # etc...
 ```
 
-For more control over the display of custom data, see "Email notifier ->
-Options -> sections" below.
+For more control over the display of custom data, see "Email notifier -> Options -> sections" below.
+
 
 ## Notifiers
 
-ExceptionNotification relies on notifiers to deliver notifications when errors occur in your applications. By default, 8 notifiers are available:
+ExceptionNotification relies on notifiers to deliver notifications when errors occur in your applications. By default the following notifiers are available:
 
 * [Datadog notifier](docs/notifiers/datadog.md)
 * [Email notifier](docs/notifiers/email.md)
@@ -132,7 +137,8 @@ ExceptionNotification relies on notifiers to deliver notifications when errors o
 * [Google Chat notifier](docs/notifiers/google_chat.md)
 * [WebHook notifier](docs/notifiers/webhook.md)
 
-But, you also can easily implement your own [custom notifier](docs/notifiers/custom.md).
+You also can implement your own [custom notifier](docs/notifiers/custom.md).
+
 
 ## Error Grouping
 
@@ -161,6 +167,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
   #
   # notification_trigger: lambda { |exception, count| count % 10 == 0 }
 ```
+
 
 ## Ignore Exceptions
 
@@ -193,6 +200,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 
 The above will make ExceptionNotifier ignore a *TemplateError* exception, plus the ones ignored by default.
 
+
 ### :ignore_crawlers
 
 *Array of strings, default: []*
@@ -208,6 +216,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
                                           exception_recipients: %w{exceptions@example.com}
                                         }
 ```
+
 
 ### :ignore_if
 
@@ -226,6 +235,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 ```
 
 You can make use of both the environment and the exception inside the lambda to decide wether to avoid or not sending the notification.
+
 
 ### :ignore_notifier_if
 
@@ -253,17 +263,20 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 
 To customize each condition, you can make use of environment and the exception object inside the lambda.
 
+
 ## Rack X-Cascade Header
 
 Some rack apps (Rails in particular) utilize the "X-Cascade" header to pass the request-handling responsibility to the next middleware in the stack.
 
 Rails' routing middleware uses this strategy, rather than raising an exception, to handle routing errors (e.g. 404s); to be notified whenever a 404 occurs, set this option to "false."
 
+
 ### :ignore_cascade_pass
 
 *Boolean, default: true*
 
 Set to false to trigger notifications when another rack middleware sets the "X-Cascade" header to "pass."
+
 
 ## Background Jobs
 
@@ -272,6 +285,7 @@ The ExceptionNotification middleware can only detect notifications that occur du
 Examples of background jobs include jobs triggered from a cron file or from a queue.
 
 ExceptionNotificatior can be configured to automatically notify of exceptions occurring in most common types of Rails background jobs such as [rake tasks](#rake-tasks). Additionally, it provides optional integrations for some 3rd-party libraries such as [Resque and Sidekiq](#resquesidekiq). And of course you can manually trigger a notification if no integration is provided.
+
 
 ### Rails runner
 
@@ -283,6 +297,7 @@ require 'exception_notification/rails'
 
 (Requiring it from an initializer is too late, because this depends on the `runner` callback, and that will have already been fired _before_ any initializers run.)
 
+
 ### Rake tasks
 
 If you've already added `require 'exception_notification/rails'` to your `config/application.rb` as described [above](#rails-runner), then there's nothing further you need to do. (That Engine has a `rake_tasks` callback which automatically requires the file below.)
@@ -292,6 +307,7 @@ Alternatively, you can add this line to your `config/initializers/exception_noti
 ```ruby
 require 'exception_notification/rake'
 ```
+
 
 ### Manually notify of exceptions
 
@@ -322,11 +338,15 @@ end
 
 Instead of manually calling background notifications for each job/worker, you can configure ExceptionNotification to do this automatically. For this, run:
 
-    rails g exception_notification:install --resque
+```bash
+rails g exception_notification:install --resque
+```
 
 or
 
-    rails g exception_notification:install --sidekiq
+```bash
+rails g exception_notification:install --sidekiq
+```
 
 As above, make sure the gem is not listed solely under the `production` group, since this initializer will be loaded regardless of environment.
 
@@ -351,14 +371,15 @@ end
 
 ## Support and tickets
 
-Here's the list of [issues](https://github.com/smartinez87/exception_notification/issues) we're currently working on.
+Pull requests are very welcome! Issues too.
 
-To contribute, please read first the [Contributing Guide](https://github.com/smartinez87/exception_notification/blob/master/CONTRIBUTING.md).
+Please read first the [Contributing Guide](CONTRIBUTING.md).
 
-## Code of Conduct
+And always follow the [code of conduct](CODE_OF_CONDUCT.md).
 
-Everyone interacting in this project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow our [code of conduct](https://github.com/smartinez87/exception_notification/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
 Copyright (c) 2005 Jamis Buck, released under the [MIT license](http://www.opensource.org/licenses/MIT).
+
+Maintainer: [Kevin McPhillips](https://github.com/kmcphillips)
