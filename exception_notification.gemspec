@@ -33,8 +33,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ostruct'
   s.add_development_dependency 'rails', '>= 7.1', '< 9'
   s.add_development_dependency 'resque', '~> 1.8.0'
-  s.add_development_dependency 'rubocop'
   s.add_development_dependency 'sidekiq', '>= 5.0.4'
   s.add_development_dependency 'slack-notifier', '>= 1.0.0'
+  s.add_development_dependency 'standard'
   s.add_development_dependency 'timecop', '~> 0.9.0'
 end

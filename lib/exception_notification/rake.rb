@@ -8,15 +8,12 @@ module ExceptionNotification
   module RakeTaskExtensions
     # A wrapper around the original +#execute+, that catches all errors and
     # passes them on to ExceptionNotifier.
-    #
-    # rubocop:disable Lint/RescueException
     def execute(args = nil)
       super(args)
     rescue Exception => e
       ExceptionNotifier.notify_exception(e, data: data_for_exception_notifier(e)) unless e.is_a?(SystemExit)
       raise e
     end
-    # rubocop:enable Lint/RescueException
 
     private
 
@@ -45,7 +42,6 @@ module ExceptionNotification
 
       data
     end
-    # rubocop:enable
 
     def reconstruct_command_line
       "rake #{ARGV.join(' ')}"
