@@ -23,10 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency('actionmailer', '>= 5.2', '< 9')
   s.add_dependency('activesupport', '>= 5.2', '< 9')
 
-  s.add_development_dependency 'appraisal', '~> 2.2.0'
   s.add_development_dependency 'aws-sdk-sns', '~> 1'
   s.add_development_dependency 'carrier-pigeon', '>= 0.7.0'
-  s.add_development_dependency 'coveralls', '~> 0.8.2'
   s.add_development_dependency 'dogapi', '>= 1.23.0'
   s.add_development_dependency 'hipchat', '>= 1.0.0'
   s.add_development_dependency 'httparty', '~> 0.10.2'
