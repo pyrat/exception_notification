@@ -9,8 +9,8 @@ module ExceptionNotification
     # A wrapper around the original +#execute+, that catches all errors and
     # passes them on to ExceptionNotifier.
     def execute(args = nil)
-      super(args)
-    rescue Exception => e
+      super
+    rescue Exception => e # standard:disable Lint/RescueException
       ExceptionNotifier.notify_exception(e, data: data_for_exception_notifier(e)) unless e.is_a?(SystemExit)
       raise e
     end
@@ -44,7 +44,7 @@ module ExceptionNotification
     end
 
     def reconstruct_command_line
-      "rake #{ARGV.join(' ')}"
+      "rake #{ARGV.join(" ")}"
     end
   end
 end

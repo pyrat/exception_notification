@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'httparty'
+require "httparty"
 
 module ExceptionNotifier
   class GoogleChatNotifier < BaseNotifier
@@ -10,8 +10,8 @@ module ExceptionNotifier
 
       HTTParty.post(
         options[:webhook_url],
-        body: { text: body(exception, formatter) }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
+        body: {text: body(exception, formatter)}.to_json,
+        headers: {"Content-Type" => "application/json"}
       )
     end
 
@@ -21,20 +21,20 @@ module ExceptionNotifier
       text = [
         "\nApplication: *#{formatter.app_name}*",
         formatter.subtitle,
-        '',
+        "",
         formatter.title,
-        "*#{exception.message.tr('`', "'")}*"
+        "*#{exception.message.tr("`", "'")}*"
       ]
 
       if (request = formatter.request_message.presence)
-        text << ''
-        text << '*Request:*'
+        text << ""
+        text << "*Request:*"
         text << request
       end
 
       if (backtrace = formatter.backtrace_message.presence)
-        text << ''
-        text << '*Backtrace:*'
+        text << ""
+        text << "*Backtrace:*"
         text << backtrace
       end
 
