@@ -18,7 +18,7 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
   end
 
   test 'should send notification if properly configured' do
-    HTTParty.expects(:post).with(URL, post_opts("#{header}\n#{body}"))
+    HTTParty.expects(:post).with(URL, **post_opts("#{header}\n#{body}"))
     notifier.call ArgumentError.new('foo')
   end
 
@@ -31,7 +31,7 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
       body
     ].join("\n")
 
-    HTTParty.expects(:post).with(URL, post_opts(text))
+    HTTParty.expects(:post).with(URL, **post_opts(text))
 
     notifier.call(ArgumentError.new('foo'), accumulated_errors_count: 5)
   end
@@ -46,12 +46,12 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
       '* url : http://test.address/?id=foo',
       '* http_method : GET',
       '* ip_address : 127.0.0.1',
-      '* parameters : {"id"=>"foo"}',
+      "* parameters : #{{ 'id' => 'foo' }}",
       '* timestamp : 2018-12-09 12:07:16 UTC',
       '```'
     ].join("\n")
 
-    HTTParty.expects(:post).with(URL, post_opts(text))
+    HTTParty.expects(:post).with(URL, **post_opts(text))
 
     notifier.call(ArgumentError.new('foo'), env: test_env)
   end
@@ -64,7 +64,7 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
       backtrace
     ].join("\n")
 
-    HTTParty.expects(:post).with(URL, post_opts(text))
+    HTTParty.expects(:post).with(URL, **post_opts(text))
 
     exception = ArgumentError.new('foo')
     exception.set_backtrace([
@@ -88,7 +88,7 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
       '```'
     ].join("\n")
 
-    HTTParty.expects(:post).with(URL, post_opts(text))
+    HTTParty.expects(:post).with(URL, **post_opts(text))
 
     exception = ArgumentError.new('foo')
     exception.set_backtrace([
@@ -111,14 +111,14 @@ class GoogleChatNotifierTest < ActiveSupport::TestCase
       '* url : http://test.address/?id=foo',
       '* http_method : GET',
       '* ip_address : 127.0.0.1',
-      '* parameters : {"id"=>"foo"}',
+      "* parameters : #{{ 'id' => 'foo' }}",
       '* timestamp : 2018-12-09 12:07:16 UTC',
       '```',
       '',
       backtrace
     ].join("\n")
 
-    HTTParty.expects(:post).with(URL, post_opts(text))
+    HTTParty.expects(:post).with(URL, **post_opts(text))
 
     exception = ArgumentError.new('foo')
     exception.set_backtrace([

@@ -37,7 +37,7 @@ class WebhookNotifierTest < ActiveSupport::TestCase
   end
 
   test 'should call pre/post_callback if specified' do
-    HTTParty.stubs(:send).returns(fake_response)
+    HTTParty.expects(:send).returns(fake_response)
     webhook = ExceptionNotifier::WebhookNotifier.new(url: 'http://localhost:8000')
     webhook.call(fake_exception)
   end

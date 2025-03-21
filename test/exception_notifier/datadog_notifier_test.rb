@@ -76,7 +76,7 @@ class DatadogNotifierTest < ActiveSupport::TestCase
     assert_includes event.msg_text, 'http://localhost:8080'
     assert_includes event.msg_text, 'GET'
     assert_includes event.msg_text, '127.0.0.1'
-    assert_includes event.msg_text, '{"param 1"=>"value 1", "param 2"=>"value 2"}'
+    assert_includes event.msg_text, { 'param 1' => 'value 1', 'param 2' => 'value 2' }.to_s
   end
 
   test 'should include tags in event' do

@@ -163,11 +163,11 @@ class SlackNotifierTest < ActiveSupport::TestCase
     }
 
     Slack::Notifier.any_instance.expects(:ping).with('',
-                                                     icon_url: 'icon',
-                                                     attachments: [{
-                                                       text: fake_backtrace.join("\n"),
-                                                       color: 'danger'
-                                                     }])
+                                                     { icon_url: 'icon',
+                                                       attachments: [{
+                                                         text: fake_backtrace.join("\n"),
+                                                         color: 'danger'
+                                                       }] })
 
     slack_notifier = ExceptionNotifier::SlackNotifier.new(options)
     slack_notifier.call(@exception)

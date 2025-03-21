@@ -14,7 +14,7 @@ class MockSidekiqServer
   include ::Sidekiq::Component
 
   def config
-    Sidekiq.default_configuration
+    @config ||= (Sidekiq.default_configuration.tap { |config| config.logger = Logger.new(nil) })
   end
 end
 

@@ -223,7 +223,7 @@ class MattermostNotifierTest < ActiveSupport::TestCase
       '* url : http://test.address/?id=foo',
       '* http_method : GET',
       '* ip_address : 127.0.0.1',
-      '* parameters : {"id"=>"foo"}',
+      "* parameters : #{{ 'id' => 'foo' }}",
       '* timestamp : 2018-12-09 12:07:16 UTC',
       '```'
     ]
