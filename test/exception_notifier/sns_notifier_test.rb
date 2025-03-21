@@ -111,7 +111,7 @@ class SnsNotifierTest < ActiveSupport::TestCase
              "was processed by examples#index\n" \
              "Exception: undefined method 'method=' for Empty\n" \
              "Hostname: example.com\n" \
-             "Data: {:current_user=>12}\n" \
+             "Data: #{{ current_user: 12 }}\n" \
              "Backtrace:\n#{fake_backtrace.join("\n")}\n",
       subject: '[App Exception] - A MyException occurred'
     )
@@ -125,6 +125,7 @@ class SnsNotifierTest < ActiveSupport::TestCase
                         'exception_notifier.exception_data' => { current_user: 12 }
                       })
   end
+
   test 'should put optional data into text' do
     controller = mock('controller')
     controller.stubs(:action_name).returns('index')
@@ -136,7 +137,7 @@ class SnsNotifierTest < ActiveSupport::TestCase
              "was processed by examples#index\n" \
              "Exception: undefined method 'method=' for Empty\n" \
              "Hostname: example.com\n" \
-             "Data: {:current_user=>12}\n" \
+             "Data: #{{ current_user: 12 }}\n" \
              "Backtrace:\n#{fake_backtrace.join("\n")}\n",
       subject: '[App Exception] - A MyException occurred'
     )

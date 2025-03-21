@@ -184,7 +184,9 @@ class HipchatNotifierTest < ActiveSupport::TestCase
       server_url: 'https://domain.com'
     }
 
-    HipChat::Client.expects(:new).with('good_token', { api_version: 'v2', server_url: 'https://domain.com' }).returns({})
+    HipChat::Client.expects(:new)
+                   .with('good_token', { api_version: 'v2', server_url: 'https://domain.com' })
+                   .returns({})
 
     hipchat = ExceptionNotifier::HipchatNotifier.new(options)
     hipchat.call(fake_exception)
