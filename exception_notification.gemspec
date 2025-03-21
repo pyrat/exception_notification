@@ -12,16 +12,15 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.metadata = { 'changelog_uri' => 'https://github.com/kmcphillips/exception_notification/blob/master/CHANGELOG.rdoc' }
 
-  s.required_ruby_version     = '>= 2.3'
-  s.required_rubygems_version = '>= 1.8.11'
+  s.required_ruby_version = '>= 3.2'
 
   s.files = `git ls-files | grep -v '^examples'`.split("\n")
   s.files -= `git ls-files -- .??*`.split("\n")
   s.test_files = `git ls-files -- test`.split("\n")
   s.require_path = 'lib'
 
-  s.add_dependency('actionmailer', '>= 5.2', '< 9')
-  s.add_dependency('activesupport', '>= 5.2', '< 9')
+  s.add_dependency('actionmailer', '>= 7.1', '< 9')
+  s.add_dependency('activesupport', '>= 7.1', '< 9')
 
   s.add_development_dependency 'aws-sdk-sns', '~> 1'
   s.add_development_dependency 'carrier-pigeon', '>= 0.7.0'
@@ -31,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha', '>= 0.13.0'
   s.add_development_dependency 'mock_redis', '~> 0.19.0'
   s.add_development_dependency 'net-smtp'
-  s.add_development_dependency 'rails', '>= 5.2', '< 9'
+  s.add_development_dependency 'rails', '>= 7.1', '< 9'
   s.add_development_dependency 'resque', '~> 1.8.0'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'sidekiq', '>= 5.0.4'
