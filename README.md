@@ -369,9 +369,11 @@ class SomeController < ApplicationController
 end
 ```
 
-## Support and tickets
+## Development and support
 
 Pull requests are very welcome! Issues too.
+
+You can always debug the gem by running `rake console`.
 
 Please read first the [Contributing Guide](CONTRIBUTING.md).
 
