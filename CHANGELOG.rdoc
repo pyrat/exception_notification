@@ -1,3 +1,19 @@
+== Unreleased
+
+nil
+
+== 4.6.0
+
+https://github.com/smartinez87/exception_notification/releases/tag/v4.6.0
+
+* Rails 8 compatibility (@kmcphillips)
+* Exception data for teams channel notification (@rachitpant)
+* Report exceptions occurring in Rake tasks and runner commands (@TylerRick)
+* suggest Rails.env.local? in ignore_if block (@glaszig)
+* Improve compatibility with frozen string literal (@Throne3d)
+* Remove unnecessary :channel option from Slack guide doc (@westonganger)
+* Add Content-Type header to Slack notifier - req. for discord (@cdadityang)
+
 == 4.5.0
 
 * enhancements
