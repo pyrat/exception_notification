@@ -17,8 +17,8 @@ This gem is not under active development, but is maintained. There are more robu
 
 ## Requirements
 
-* Ruby 2.5 or greater
-* Rails 5.2 or greater, Sinatra or another Rack-based application.
+* Ruby 3.2 or greater
+* If using Rails, version 7.1 or greater. (Sinatra or other Rack-based applications are supported.)
 
 
 ## Getting Started

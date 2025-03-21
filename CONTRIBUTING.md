@@ -17,3 +17,17 @@ You can use the `examples/sample_app.rb` to help reproduce the issue.
 All PRs with changes will be reviewed and merged if possible. Thank you for taking the time to contribute.
 
 Changes must include tests. Please include a description of the problem and why the change is needed. Same with issues, reproduction steps are helpful.
+
+
+### Running the tests
+
+```bash
+bundle install
+bundle exec rake test
+```
+
+And running the linting with [standard](https://github.com/standardrb/standard):
+
+```bash
+bundle exec standardrb
+```
