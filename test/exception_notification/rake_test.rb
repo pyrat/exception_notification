@@ -8,7 +8,7 @@ require 'exception_notification/rake'
 class RakeTest < ActiveSupport::TestCase
   setup do
     Rake::Task.define_task :dependency_1 do
-      puts :dependency_1
+      nil # noop but could puts for debugging
     end
     Rake::Task.define_task raise_exception: :dependency_1 do
       raise 'test exception'

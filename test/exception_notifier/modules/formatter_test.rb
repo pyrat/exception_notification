@@ -142,6 +142,8 @@ class FormatterTest < ActiveSupport::TestCase
     assert_nil formatter.controller_and_action
   end
 
+  private
+
   def test_controller
     controller = mock('controller')
     controller.stubs(:action_name).returns('index')
