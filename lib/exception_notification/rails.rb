@@ -15,12 +15,12 @@ module ExceptionNotification
 
     rake_tasks do
       # Report exceptions occurring in Rake tasks.
-      require 'exception_notification/rake'
+      require "exception_notification/rake"
     end
 
     runner do
       # Report exceptions occurring in runner commands.
-      require 'exception_notification/rails/runner_tie'
+      require "exception_notification/rails/runner_tie"
       Rails::RunnerTie.new.call
     end
   end
