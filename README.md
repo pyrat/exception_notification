@@ -1,7 +1,7 @@
 # Exception Notification
 
 [![Gem Version](https://badge.fury.io/rb/exception_notification.svg)](https://badge.fury.io/rb/exception_notification)
-[![Build Status](https://github.com/kmcphillips/exception_notification/actions/workflows/main.yml/badge.svg)](https://github.com/kmcphillips/exception_notification/actions/workflows/main.yml)
+[![Build Status](https://github.com/kmcphillips/exception_notification/actions/workflows/ci.yml/badge.svg)](https://github.com/kmcphillips/exception_notification/actions/workflows/ci.yml)
 
 ---
 
