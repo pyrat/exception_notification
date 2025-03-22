@@ -122,6 +122,17 @@ The current user will show up in your email, in a new section titled "Data".
 For more control over the display of custom data, see "Email notifier -> Options -> sections" below.
 
 
+### Filtering parameters
+
+Since the error notification contains the full request parameters, you may want to filter out sensitive information. The `filter_parameters` in Rails can be used to filter out sensitive information from the request parameters.
+
+```ruby
+config.filter_parameters += [:secret_details, :credit_card_number]
+```
+
+See the Rails documentation for more information: https://guides.rubyonrails.org/configuring.html#config-filter-parameters
+
+
 ## Notifiers
 
 ExceptionNotification relies on notifiers to deliver notifications when errors occur in your applications. By default the following notifiers are available:
