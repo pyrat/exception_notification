@@ -35,6 +35,7 @@ module ExceptionNotifier
   @@ignored_exceptions = %w[
     ActiveRecord::RecordNotFound Mongoid::Errors::DocumentNotFound AbstractController::ActionNotFound
     ActionController::RoutingError ActionController::UnknownFormat ActionController::UrlGenerationError
+    ActionDispatch::Http::MimeNegotiation::InvalidType Rack::Utils::InvalidParameterError
   ]
 
   mattr_accessor :testing_mode
