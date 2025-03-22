@@ -26,7 +26,9 @@ class ExceptionNotifierTest < ActiveSupport::TestCase
     assert_equal ExceptionNotifier.ignored_exceptions,
       ["ActiveRecord::RecordNotFound", "Mongoid::Errors::DocumentNotFound",
         "AbstractController::ActionNotFound", "ActionController::RoutingError",
-        "ActionController::UnknownFormat", "ActionController::UrlGenerationError"]
+        "ActionController::UnknownFormat", "ActionController::UrlGenerationError",
+        "ActionDispatch::Http::MimeNegotiation::InvalidType",
+        "Rack::Utils::InvalidParameterError"]
   end
 
   test "should have email notifier registered" do
