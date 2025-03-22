@@ -195,7 +195,7 @@ You can choose to ignore certain exceptions, which will make ExceptionNotificati
 
 ### :ignore_exceptions
 
-*Array of strings, default: %w{ActiveRecord::RecordNotFound Mongoid::Errors::DocumentNotFound AbstractController::ActionNotFound ActionController::RoutingError ActionController::UnknownFormat}*
+*Array of strings, default: %w{ActiveRecord::RecordNotFound Mongoid::Errors::DocumentNotFound AbstractController::ActionNotFound ActionController::RoutingError ActionController::UnknownFormat ActionDispatch::Http::MimeNegotiation::InvalidType Rack::Utils::InvalidParameterError}*
 
 Ignore specified exception types. To achieve that, you should use the `:ignore_exceptions` option, like this:
 
