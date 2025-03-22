@@ -24,10 +24,17 @@ class SidekiqTest < ActiveSupport::TestCase
     message = {}
     exception = RuntimeError.new
 
-    ExceptionNotifier.expects(:notify_exception).with(
-      exception,
-      data: {sidekiq: message}
-    )
+    if ::Sidekiq::VERSION < "7.1.5"
+      ExceptionNotifier.expects(:notify_exception).with(
+        exception,
+        data: {sidekiq: message}
+      )
+    else
+      ExceptionNotifier.expects(:notify_exception).with(
+        exception,
+        data: {sidekiq: {context: message, config: server.config}}
+      )
+    end
 
     server.handle_exception(exception, message)
   end
