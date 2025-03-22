@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    exception_notification (5.0.0.pre1)
+    exception_notification (5.0.0)
       actionmailer (>= 7.1, < 9)
       activesupport (>= 7.1, < 9)
 
