@@ -1,9 +1,9 @@
 PATH
   remote: ../..
   specs:
-    exception_notification (4.5.0)
-      actionmailer (>= 5.2, < 9)
-      activesupport (>= 5.2, < 9)
+    exception_notification (5.0.0.pre1)
+      actionmailer (>= 7.1, < 9)
+      activesupport (>= 7.1, < 9)
 
 GEM
   remote: https://rubygems.org/
@@ -102,6 +102,7 @@ GEM
     nokogiri (1.18.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    ostruct (0.6.1)
     racc (1.8.1)
     rack (2.2.13)
     rack-protection (3.2.0)
@@ -149,6 +150,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   mailcatcher
+  ostruct
   sinatra
   thin
 
