@@ -7,6 +7,7 @@ module ExceptionNotifier
     attr_accessor :notifier
 
     def initialize(options)
+      puts "welcome to a slack error"
       super
       begin
         @ignore_data_if = options[:ignore_data_if]
@@ -23,6 +24,7 @@ module ExceptionNotifier
     end
 
     def call(exception, options = {})
+      puts "we have been called!"
       clean_message = exception.message.tr("`", "'")
       attchs = attchs(exception, clean_message, options)
 
