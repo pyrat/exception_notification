@@ -26,7 +26,9 @@ module ExceptionNotifier
       clean_message = exception.message.tr("`", "'")
       attchs = attchs(exception, clean_message, options)
 
+      puts "checking if notifier is valid"
       return unless valid?
+      puts "notifier is valid, sending notice"
 
       args = [exception, options, clean_message, @message_opts.merge(attachments: attchs)]
       send_notice(*args) do |msg, message_opts|
