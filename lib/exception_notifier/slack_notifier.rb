@@ -17,7 +17,10 @@ module ExceptionNotifier
         @message_opts = options.fetch(:additional_parameters, {})
         @color = @message_opts.delete(:color) { "danger" }
         @notifier = Slack::Notifier.new webhook_url, options
-      rescue
+      rescue StandardError => e
+        puts "ExceptionNotifier::SlackNotifier: Error initializing notifier: #{e.message}"
+        puts e.backtrace.join("\n")
+        puts "Please check your configuration."
         @notifier = nil
       end
     end
